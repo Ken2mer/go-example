@@ -5,16 +5,21 @@ import (
 	"log"
 	"net"
 	"net/http"
-	"strings"
+	"net/url"
 )
 
 // HTTPClient inspired by https://ascii.jp/elem/000/001/276/1276572/
-func HTTPClient(url string) (*http.Response, error) {
-	conn, err := net.Dial("tcp", strings.Split(url, "://")[1])
+func HTTPClient(rawurl string) (*http.Response, error) {
+	u, err := url.Parse(rawurl)
 	if err != nil {
 		log.Fatal(err)
 	}
-	request, err := http.NewRequest("GET", url, nil)
+
+	conn, err := net.Dial("tcp", u.Host)
+	if err != nil {
+		log.Fatal(err)
+	}
+	request, err := http.NewRequest("GET", u.String(), nil)
 	if err != nil {
 		log.Fatal(err)
 	}
