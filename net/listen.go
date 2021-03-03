@@ -3,7 +3,7 @@ package net
 import (
 	"bufio"
 	"fmt"
-	"io"
+	"io/ioutil"
 	"net"
 	"net/http"
 	"net/http/httputil"
@@ -56,7 +56,7 @@ func HTTPServer(port string) error {
 				StatusCode: 200,
 				ProtoMajor: 1,
 				ProtoMinor: 0,
-				Body:       io.NopCloser(strings.NewReader("Hello World\n")),
+				Body:       ioutil.NopCloser(strings.NewReader("Hello World\n")),
 			}
 			response.Write(conn)
 

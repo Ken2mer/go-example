@@ -2,7 +2,7 @@ package net
 
 import (
 	"fmt"
-	"io"
+	"io/ioutil"
 	"net/http"
 	"syscall"
 	"testing"
@@ -24,7 +24,7 @@ func TestHTTPServer(t *testing.T) {
 	defer resp.Body.Close()
 
 	status := resp.StatusCode
-	body, err := io.ReadAll(resp.Body)
+	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		t.Fatal(err)
 	}
